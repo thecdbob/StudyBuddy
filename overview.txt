@@ -1,5 +1,8 @@
 Group Project Ideas
 
+Current Tasks:
+	Add name to this document
+
 Topics:
 
 	Scope of Project:
@@ -8,7 +11,7 @@ Topics:
 		C++?
 	Members:
 	
-		(4)
+		(4) Robert Stewart
 
 	Time of lab:
 	
