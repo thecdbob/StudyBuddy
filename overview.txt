@@ -10,8 +10,11 @@ Topics:
 	Language of project:
 		C++?
 	Members:
-	
-		(4) Robert Stewart
+		    
+		(4) Joshua Lade
+		    Robert Stewart
+		    
+		    
 
 	Time of lab:
 	
