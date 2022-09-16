@@ -55,3 +55,12 @@ Last year the 265 class made an elevator for 2-3 person groups.
 Potential ideas.
 
 Transit system comprised of bus and subway lines, where you can route person to potential places, where bus or subway lines are linear and may change dependant on the time and day and weekday. Overlapping systems can be optimized dependant on either cost or distance or time. Payment system on card or based on money to track how much is required. 
+
+Another potential idea was to make something more specific to VIU, the ideas introduced was to make a notes system for students that focues on their courseload, makes file and directories dependant on how many lectures they have. There could also be something like the transit system that gives students directions to their next class and how long it would take to get there. Authenication and search funtions could also be added so that a basic database of several students could exist within the program.
+
+Topics addressed would include:
+	File management
+	User Authentication
+	Regex
+	Searching through files
+	Binary Search Tress for pathing
