@@ -16,8 +16,12 @@ let place_holder_task_array;
 let input_selected_colour = null;
 let input_group_colour = null;
 
+//counts number of group objects, by default there is one
+//reqs stated a maximum of 16
+number_of_group_objects = 1;
 
 //default types list, implimentation may change in the future
+//hard coded value for types
 let types_array = [
     "Assignment",
     "Test",
@@ -26,20 +30,30 @@ let types_array = [
 ]
 
 //default group object implimentation may change in the future to JSON object 
+//default objects we are currently using to represent a default group object
 let default_group_object = {
     name: 'default',
     colour: 'black' //maybe use a different value later
 }
 
+//function used to create a new group
 //this is just a basic code skeleton to get started
 function create_new_group() {
+    //check to see if value exceeds max value, exit function
+    if(number_of_group_objects > 15){
+        console.log("Maximum number of group objects created, cannot create more group objects");
+        break create_new_group;
+    }
     console.log('Enter the name of the new group');
     //basic input, error checking later
     console.log('What colour would you like the group to be');
     //basic input, error checking later
 }
 
+
+//function used to create a new task
 //this is just a basic code skeleton to get started
+//the implementation will change as it uses firebase and the input changes
 function create_new_task() {
     console.log('Enter the name of the new task');
     //basic input, error checking later
