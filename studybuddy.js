@@ -17,8 +17,11 @@ let input_selected_colour = null;
 let input_group_colour = null;
 
 //counts number of group objects, by default there is one
-//reqs stated a maximum of 16
+//reqs stated a maximum of 16, int value
 number_of_group_objects = 1;
+
+//bool for marking a task as completed
+completed_bool = 0;
 
 //default types list, implimentation may change in the future
 //hard coded value for types
