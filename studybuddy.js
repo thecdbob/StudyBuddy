@@ -23,6 +23,7 @@ number_of_group_objects = 1;
 //bool for marking a task as completed
 completed_bool = 0;
 
+//another comment
 //default types list, implimentation may change in the future
 //hard coded value for types
 let types_array = [
