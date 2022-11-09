@@ -25,21 +25,52 @@
         <button class ="logoutb">Logout</button>
         <form class = "create_group">
           <label for="Group Name">Group Name:</label>
-          <input type="text" name="GroupName" required>
+          <input type="text" placeholder="Enter Group Name" name="GroupName" required>
           <label for="Colour">Colour:</label>
-          <input type="text" name="GroupColour" required>
+          <input type="color" name="GroupColour" required>
 
           <button>Add Group</button>
         </form>
+        
+
+        <!---
+          future logic for a popup
+        <button class = "createTaskB">Create Task</button>
+
+        <div class="createTaskPopup" id = "createTaskPopup">
+          <div class="createTaskPUHeader">
+            Create a New Task
+          </div>
+          <div class="createTaskPUBody">
+            <label for="Type">Choose a Type:</label>
+            <select id = "selectedType" name = "type" required>
+              
+              <option value="Option 1">Assignment</option>
+              <option value="Option 2">Exam</option>
+              <option value="Option 2">Lab</option>
+              <option value="Option 2">Project</option>
+              
+            </select>
+            <button class ="cancelCreateTaskPU">Cancel</button>
+          </div>
+
+        </div> 
+        <div id="popUpOverlay"></div>
+       -->
 
         <form class = "create_task">
           <label for="Group Name">Group:</label>
           <input type="text" name="Group" required>
           <label for="Task Name">Task Name:</label>
-          <input type="text" name="TaskName" required>
+          <input type="text" placeholder="Enter Task Name" name="TaskName" required>
           <!--change to take values from something else later on-->
-          <label for="Type">Type:</label>
-          <input type="text" name="Type" required>
+          <label for="Type">Choose a Type:</label>
+            <select id = "selectedType" name = "type" required>
+              <option value="Option 1">Assignment</option>
+              <option value="Option 2">Exam</option>
+              <option value="Option 2">Lab</option>
+              <option value="Option 2">Project</option>
+            </select>
           <label for="Date Due">Date Due:</label>
           <input type="date" name="DateDue" required>
           <button>Add Task</button>

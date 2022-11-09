@@ -119,8 +119,12 @@
       .catch(err => {
         console.log(err.message)
       })
+  */
+      //run to create array that's populates dropdown menu for user input on tasks
+      //must be run within that function as well...
   
-  getDocs(TypeCollection)
+  
+      getDocs(TypeCollection)
     //a promise    
     .then((snapshot) => {
         let types_display_array = []
@@ -128,12 +132,16 @@
           //the id could be useful for the buttons
           types_display_array.push({...doc.data(), id: doc.id})
         })
-      console.log(types_display_array)
+        var typesDropdownMenu = document.getElementById("selectedType");
+        dropdown[dropdown.length] = new Option(types_display_array[i].Name, types_display_array[i].Name);
+      //console.log(types_display_array)
     })
     .catch(err => {
       console.log(err.message)
     })
-
+    
+    
+    /*
   getDocs(TasksCollection)
     //a promise    
     .then((snapshot) => {
@@ -444,7 +452,7 @@
           showApp()
       }
       else {
-        showLoginForm()
+          showLoginForm()
       }
       });
     }
@@ -455,6 +463,15 @@
     
 
     
+
+
+    //NON FIREBASE FUNCTIONS
+
+    //addTaskPopup()
+    const taskPopupButton = document.querySelector('.createTaskB')
+      completedTaskEdit.addEventListener('click', () => {
+        taskPopupButton.classList.toogle("create_task_popup")
+    })
     //things that should be in another file but aren't
     
     //our little thing to put in the top right corner to show the logged in user
