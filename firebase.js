@@ -101,6 +101,11 @@
 
   //used to get different items from database (Groups, Tasks, Types)
   //probably useful for when we create objects
+
+
+  //commented out for now, but will be needed for dropdowns, saves writes
+
+  /*
   getDocs(GroupCollection)
         //a promise    
         .then((snapshot) => {
@@ -142,6 +147,7 @@
     .catch(err => {
       console.log(err.message)
     })
+    */
 
   //even # of elements, collection, doc (always even number)
   //const add_task_to_db
@@ -208,6 +214,7 @@
     
     //Realtime Data Collection
     //probably used for main screen, to display groups and tasks
+    //what we see our tasks and groups as on the main page
 
     //Realtime Groups
     
@@ -217,8 +224,35 @@
     //the id could be useful for the buttons
     groups_display_array_rt.push({...doc.data(), id: doc.id})
     })
-    console.log(groups_display_array_rt)
+    //document.getElementById("groupLegend").innerHTML = groups_display_array_rt
+    document.getElementById("groupLegend").innerHTML = '';
+    for (let i = 0; i < groups_display_array_rt.length; i++) {
+      var gName = groups_display_array_rt[i].Name;
+      var gColour = groups_display_array_rt[i].Colour;
+      
+      var display_groups = document.createTextNode(gName + ' ' + gColour + '\n');
+      //var display_groups = document.createElement('li', gName + ' ' + gColour);
+      document.getElementById("groupLegend").appendChild(display_groups); 
+
+
+      /*
+      data.forEach((item) => {
+        let li = document.createElement("li");
+        li.innerText = item;
+        list.appendChild(li);
+        */
+      
+      //this changed the style of the document
+      //document.getElementById("groupLegend").innerHTML = groups_display_array_rt[i].Name + ' ' + groups_display_array_rt[i].Colour;
+      //document.querySelector('.completeTask')
+      
+      //display_groups.parent('groupLegend');
+      //console.log('hi');
+      
+    }
     })
+
+    //document.getElementById("groupLegend").innerHTML = "I have changed!"; 
 
     //Realtime Tasks
     onSnapshot(TasksCollection, (snapshot) => {
@@ -227,7 +261,20 @@
     //the id could be useful for the buttons
     task_display_array_rt.push({...doc.data(), id: doc.id})
     })
-    console.log(task_display_array_rt)
+    document.getElementById("taskDisplay").innerHTML = '';
+    for (let i = 0; i < task_display_array_rt.length; i++) {
+      var tCompleted = task_display_array_rt[i].Completed;
+      var tName = task_display_array_rt[i].Name;
+      var tGroup = task_display_array_rt[i].Group;
+      var tType = task_display_array_rt[i].Type;
+      var tDue = task_display_array_rt[i].date_due;
+
+      
+      
+      var display_tasks = document.createTextNode(tCompleted + ' ' + tName + ' ' + tGroup + ' ' + tType + ' ' + tDue + '\n');
+      //var display_groups = document.createElement('li', gName + ' ' + gColour);
+      document.getElementById("taskDisplay").appendChild(display_tasks); 
+    }
     })
     
     
