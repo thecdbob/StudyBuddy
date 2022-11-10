@@ -105,7 +105,7 @@
 
   //commented out for now, but will be needed for dropdowns, saves writes
 
-  /*
+  
   getDocs(GroupCollection)
         //a promise    
         .then((snapshot) => {
@@ -114,12 +114,26 @@
             //the id could be useful for the buttons
             groups_display_array.push({...doc.data(), id: doc.id})
           })
-        console.log(groups_display_array)
-      })
+          let dynamicTypesDropdown = document.getElementById("selectedGroup");
+          //the element we need
+  
+          let groupNamesArray = [];
+          for (let i = 0; i < groups_display_array.length; i++){
+            groupNamesArray[i] = groups_display_array[i].Name;
+          }
+          
+          groupNamesArray.forEach(item => {
+            const option = document.createElement("option");
+            option.textContent = item;
+            dynamicTypesDropdown.appendChild(option);
+          })
+          //console.log(groupNamesArray);
+          })
+      
       .catch(err => {
         console.log(err.message)
       })
-  */
+  
       //run to create array that's populates dropdown menu for user input on tasks
       //must be run within that function as well...
   
@@ -132,13 +146,31 @@
           //the id could be useful for the buttons
           types_display_array.push({...doc.data(), id: doc.id})
         })
-        var typesDropdownMenu = document.getElementById("selectedType");
-        dropdown[dropdown.length] = new Option(types_display_array[i].Name, types_display_array[i].Name);
-      //console.log(types_display_array)
-    })
+        //var typesDropdownMenu = document.getElementById("selectedType");
+        //dropdown[dropdown.length] = new Option(types_display_array[i].Name, types_display_array[i].Name);
+        //let onlyTypesNamesArray = types_display_array[i].name;
+        let dynamicTypesDropdown = document.getElementById("selectedType");
+        //the element we need
+
+        let typeNamesArray = [];
+        for (let i = 0; i < types_display_array.length; i++){
+          typeNamesArray[i] = types_display_array[i].Name;
+        }
+        
+        typeNamesArray.forEach(item => {
+          const option = document.createElement("option");
+          option.textContent = item;
+          dynamicTypesDropdown.appendChild(option);
+        })
+        
+        //console.log(typeNamesArray);
+        //console.log(types_display_array);
+        })
     .catch(err => {
       console.log(err.message)
     })
+    
+
     
     
     /*
@@ -191,9 +223,9 @@
         e.preventDefault()
 
         addDoc(TasksCollection, {
-            Group: addTaskForm.Group.value,
+            Group: addTaskForm.selGroup.value,
             Name: addTaskForm.TaskName.value,
-            Type: addTaskForm.Type.value,       
+            Type: addTaskForm.selType.value,       
             date_due: addTaskForm.DateDue.value,
             time_created: serverTimestamp(),
             time_modified: serverTimestamp(),
@@ -468,10 +500,15 @@
     //NON FIREBASE FUNCTIONS
 
     //addTaskPopup()
+
+    /*
     const taskPopupButton = document.querySelector('.createTaskB')
       completedTaskEdit.addEventListener('click', () => {
         taskPopupButton.classList.toogle("create_task_popup")
     })
+    */
+
+
     //things that should be in another file but aren't
     
     //our little thing to put in the top right corner to show the logged in user
