@@ -11,7 +11,15 @@
     //is to use npm to run javascript, however we can use a CDN (content delivery network) to get these modules
     //so if you're looking at a tutorial and you see them import objects from say 'firebase/auth', 
     //we are using webbased versions of those libraries
-    
+    //<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    //<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+
+  //hopefully this is just for two buttons
+
+  //test comment 
+
+
 
 
     //Firebase Libraries, we load all the things we need from firebase's CDN here
@@ -194,7 +202,7 @@
 
   //const add_task_to_db
 
-
+    //NOT THE N FOLDER WE WANT
 
     //add items to database
     
@@ -237,12 +245,61 @@
         })
     })
 
+     //delete task
+     const removeTaskForm = document.querySelector('.remove_task')
+     removeTaskForm.addEventListener('submit', (e) => {
+             //prevents page refresh
+             e.preventDefault()
+ 
+             const docRef = doc(db, 'Tasks', removeTaskForm.TaskID.value)
+ 
+             deleteDoc(docRef)
+             .then(() => {
+             removeTaskForm.reset()
+         })
+     })
+     
+
     //delete task
-    const removeTaskForm = document.querySelector('.remove_task')
-    removeTaskForm.addEventListener('submit', (e) => {
+    //const removeTaskForm = document.querySelector('.remove_task');
+    //const removeTask = document.querySelector('.create_task')
+    /*
+    removeTask.addEventListener("onclick", (e) => {
+      
+      var idKey = e.getAttribute("id");
+      
+      const docRef = doc(db, 'Tasks', idKey)
+            //e.preventDefault();
+            
+            //deleteDoc(docRef)
+            //.then(() => {
+      //}
+
+      
+    })
+    */
+    
+    /*
+    export function removeTask(idKey) {
+            //prevents page refresh
+            //e.preventDefault()
+            //var input = whatever button id we have
+            //var idToRemove = varinput.substr(1);
+            //this value will change
+            
+            //removeTaskForm.reset()
+        })
+    }
+    */
+    /*
+    //delete task
+    //const removeTaskForm = document.querySelector('.remove_task')
+    removeTaskForm.addEventListener('onclick', (e) => {
             //prevents page refresh
             e.preventDefault()
-
+            //var input = whatever button id we have
+            var idToRemove = varinput.substr(1);
+            //this value will change
             const docRef = doc(db, 'Tasks', removeTaskForm.TaskID.value)
 
             deleteDoc(docRef)
@@ -250,6 +307,7 @@
             removeTaskForm.reset()
         })
     })
+    */
     
     
     //Realtime Data Collection
@@ -266,14 +324,16 @@
     })
     //document.getElementById("groupLegend").innerHTML = groups_display_array_rt
     document.getElementById("groupLegend").innerHTML = '';
+    //document.getElementById("groupLegend").innerHTML = 'Group Legend';
+
     for (let i = 0; i < groups_display_array_rt.length; i++) {
       var gName = groups_display_array_rt[i].Name;
       var gColour = groups_display_array_rt[i].Colour;
       
-      var display_groups = document.createTextNode(gName + ' ' + gColour + '\n');
+      var display_groups = gName + ' ' + gColour + '\n';
       //var display_groups = document.createElement('li', gName + ' ' + gColour);
-      document.getElementById("groupLegend").appendChild(display_groups); 
-
+      //document.getElementById("groupLegend").appendChild(display_groups); 
+      document.getElementById("groupLegend").innerHTML +='<li> ' + display_groups + ' </li>';
 
       /*
       data.forEach((item) => {
@@ -302,18 +362,25 @@
     task_display_array_rt.push({...doc.data(), id: doc.id})
     })
     document.getElementById("taskDisplay").innerHTML = '';
+    //document.getElementById("taskDisplay").innerHTML = '<h2>Tasks</h2>';
     for (let i = 0; i < task_display_array_rt.length; i++) {
       var tCompleted = task_display_array_rt[i].Completed;
       var tName = task_display_array_rt[i].Name;
       var tGroup = task_display_array_rt[i].Group;
       var tType = task_display_array_rt[i].Type;
       var tDue = task_display_array_rt[i].date_due;
+      //we use this in another place, but it works
+      var tId = task_display_array_rt[i].id;
 
-      
-      
-      var display_tasks = document.createTextNode(tCompleted + ' ' + tName + ' ' + tGroup + ' ' + tType + ' ' + tDue + '\n');
+      var taskString = tCompleted + " " + tName + " " + tGroup + " " + tType + " " + tDue;
+      //hi josh please change this
+      document.getElementById("taskDisplay").innerHTML +='<li>' + taskString + '</li>';
+      //document.getElementById("taskDisplay").innerHTML +='<li><button id ="' + "m" + tId + '">Mark</button> ' + taskString + ' <button type="button" class="btn btn-primary" onclick="removeTask(' + tId + ');">Remove</button></li>';
+      //document.getElementById("taskDisplay").innerHTML +='<script><script><li><button id ="' + "m" + tId + '">Mark</button> ' + taskString + ' <button type="button" class="btn btn-primary" onclick={() => removeTask(' + tId + ')}>Remove</button></li>';
+      //we still need to add that doc.id element to this to be able to delete it
+      //var display_tasks = document.createTextNode(tCompleted + ' ' + tName + ' ' + tGroup + ' ' + tType + ' ' + tDue + '\n');
       //var display_groups = document.createElement('li', gName + ' ' + gColour);
-      document.getElementById("taskDisplay").appendChild(display_tasks); 
+      //document.getElementById("taskDisplay").appendChild(display_tasks); 
     }
     })
     
@@ -432,7 +499,7 @@
             const credential = GithubAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
 
-            // The signed-in user info.
+            // The signed-in user info
             const user = result.user;
             // ...
             })
