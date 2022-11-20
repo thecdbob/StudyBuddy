@@ -335,6 +335,8 @@
       //document.getElementById("groupLegend").appendChild(display_groups); 
       document.getElementById("groupLegend").innerHTML +='<li> ' + display_groups + ' </li>';
 
+
+      
       /*
       data.forEach((item) => {
         let li = document.createElement("li");
@@ -362,6 +364,7 @@
     task_display_array_rt.push({...doc.data(), id: doc.id})
     })
     document.getElementById("taskDisplay").innerHTML = '';
+    document.getElementById("completedTaskDisplay").innerHTML = '';
     //document.getElementById("taskDisplay").innerHTML = '<h2>Tasks</h2>';
     for (let i = 0; i < task_display_array_rt.length; i++) {
       var tCompleted = task_display_array_rt[i].Completed;
@@ -372,15 +375,21 @@
       //we use this in another place, but it works
       var tId = task_display_array_rt[i].id;
 
-      var taskString = tCompleted + " " + tName + " " + tGroup + " " + tType + " " + tDue;
+      var taskString = tCompleted + " " + tName + " " + tGroup + " " + tType + " " + tDue + " " + tId;
       //hi josh please change this
-      document.getElementById("taskDisplay").innerHTML +='<li>' + taskString + '</li>';
+      if (tCompleted == false) {
+        document.getElementById("taskDisplay").innerHTML +='<li>' + taskString + '</li>';
+      } else {
+        document.getElementById("completedTaskDisplay").innerHTML +='<li>' + taskString + '</li>';
+      }
       //document.getElementById("taskDisplay").innerHTML +='<li><button id ="' + "m" + tId + '">Mark</button> ' + taskString + ' <button type="button" class="btn btn-primary" onclick="removeTask(' + tId + ');">Remove</button></li>';
       //document.getElementById("taskDisplay").innerHTML +='<script><script><li><button id ="' + "m" + tId + '">Mark</button> ' + taskString + ' <button type="button" class="btn btn-primary" onclick={() => removeTask(' + tId + ')}>Remove</button></li>';
       //we still need to add that doc.id element to this to be able to delete it
       //var display_tasks = document.createTextNode(tCompleted + ' ' + tName + ' ' + tGroup + ' ' + tType + ' ' + tDue + '\n');
       //var display_groups = document.createElement('li', gName + ' ' + gColour);
       //document.getElementById("taskDisplay").appendChild(display_tasks); 
+
+      //I modified the code haha!
     }
     })
     
@@ -501,6 +510,8 @@
 
             // The signed-in user info
             const user = result.user;
+            
+            
             // ...
             })
             .catch((error) => {
@@ -515,7 +526,7 @@
             })
         })
 
-
+        //const userThing = auth.currentUser;
     //logout
 
 
@@ -535,8 +546,11 @@
     //auth state 
 
     const showApp = () => {
+      const userThing = auth.currentUser.reloadUserInfo.screenName;
       document.getElementById("login").style.display = 'none'
       document.getElementById('app').style.display = 'block'
+      document.getElementById('userName').innerHTML += "Hello " + userThing;
+      //document.getElementById('userName').innerHTML += "Hello " + {user.displayName};
     }
 
     const showLoginForm = () => {

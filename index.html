@@ -9,22 +9,116 @@
 
  
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <style>
-    .hiddenStuff {
-      display: none;
-    }
-  </style>
+  <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+
   </head>
 
   <body>
+    <h1>Study Buddy</h1>
     <script type = "module" src="firebase.js"></script>
       <div class = "login" id="login">
         <button class = "loginb">Login with Github</button>
       </div>
       
       <div class = "app" id="app">
+        <p id="userName"></p>
         <button class ="logoutb">Logout</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalT">Add Task</button>
+        <div class="modal" id="myModalT">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Add Task</h5>
+                <button type="button" class="btm-close" data-bs-dimiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <form class = "create_task">
+                  <label for="Group Name">Group:</label>
+                  <label for="Type">Choose a Type:</label>
+                    <select id = "selectedGroup" name = "selGroup" required>
+                    </select>
+                  <label for="Task Name">Task Name:</label>
+                  <input type="text" placeholder="Enter Task Name" name="TaskName" required>
+                  <!--change to take values from something else later on-->
+                  <label for="Type">Choose a Type:</label>
+                    <select id = "selectedType" name = "selType" required>
+                    </select>
+                  <label for="Date Due">Date Due:</label>
+                  <input type="date" name="DateDue" required>
+                  <button>Add Task</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalG">Add Group</button>
+        <div class="modal" id="myModalG">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Add Group</h5>
+                <button type="button" class="btm-close" data-bs-dimiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <form class = "create_group">
+                  <label for="Group Name">Group Name:</label>
+                  <input type="text" placeholder="Enter Group Name" name="GroupName" required>
+                  <label for="Colour">Colour:</label>
+                  <input type="color" name="GroupColour" required>
+                  <button>Add Group</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalC">Complete Task</button>
+        <div class="modal" id="myModalC">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Complete Task</h5>
+                <button type="button" class="btm-close" data-bs-dimiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <form class = "completeTask">
+                  <label for="Task Name">Task Id:</label>
+                  <input type="text" name="TaskID" required>
+                  <button>Complete Task</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalR">Remove Task</button>
+        <div class="modal" id="myModalR">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Complete Task</h5>
+                <button type="button" class="btm-close" data-bs-dimiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <form class = "remove_task">
+                  <label for="Task Name">Task Id:</label>
+                  <input type="text" name="TaskID" required>
+                  <button>Remove Task</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- comment --->
+        
+        <!--
         <form class = "create_group">
           <label for="Group Name">Group Name:</label>
           <input type="text" placeholder="Enter Group Name" name="GroupName" required>
@@ -33,7 +127,7 @@
 
           <button>Add Group</button>
         </form>
-        
+      -->
 
         <!---
           future logic for a popup
@@ -59,40 +153,17 @@
         </div> 
         <div id="popUpOverlay"></div>
        -->
-
-        <form class = "create_task">
-          <label for="Group Name">Group:</label>
-          <label for="Type">Choose a Type:</label>
-            <select id = "selectedGroup" name = "selGroup" required>
-            </select>
-          <label for="Task Name">Task Name:</label>
-          <input type="text" placeholder="Enter Task Name" name="TaskName" required>
-          <!--change to take values from something else later on-->
-          <label for="Type">Choose a Type:</label>
-            <select id = "selectedType" name = "selType" required>
-            </select>
-          <label for="Date Due">Date Due:</label>
-          <input type="date" name="DateDue" required>
-          <button>Add Task</button>
-        </form>
-      
-        <form class = "remove_task">
-          <label for="Task Name">Task Id:</label>
-          <input type="text" name="TaskID" required>
-          <button>Remove Task</button>
-        </form>
-
-        <form class = "completeTask">
-          <label for="Task Name">Task Id:</label>
-          <input type="text" name="TaskID" required>
-          <button>Complete Task</button>
-        </form>
         <h2>Groups</h2>
         <ul id="groupLegend" style="list-style: none">
             
         </ul>
         <h2>Tasks</h2>
         <ul id="taskDisplay" style="list-style: none">
+            
+        </ul>
+
+        <h2>Completed Tasks</h2>
+        <ul id="completedTaskDisplay" style="list-style: none">
             
         </ul>
         
