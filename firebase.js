@@ -549,13 +549,14 @@
       const userThing = auth.currentUser.reloadUserInfo.screenName;
       document.getElementById("login").style.display = 'none'
       document.getElementById('app').style.display = 'block'
-      document.getElementById('userName').innerHTML += "Hello " + userThing;
+      document.getElementById('userName').innerHTML = "Hello " + userThing;
       //document.getElementById('userName').innerHTML += "Hello " + {user.displayName};
     }
 
     const showLoginForm = () => {
       document.getElementById('login').style.display = 'block'
       document.getElementById('app').style.display = 'none'  
+      document.getElementById('userName').innerHTML += '';
     }
 
     const monitorAuthState = async () => {
