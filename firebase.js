@@ -124,15 +124,18 @@
           })
           let dynamicTypesDropdown = document.getElementById("selectedGroup");
           //the element we need
-  
+          /*
           let groupNamesArray = [];
+          
           for (let i = 0; i < groups_display_array.length; i++){
             groupNamesArray[i] = groups_display_array[i].Name;
+            
           }
-          
-          groupNamesArray.forEach(item => {
+          */
+          groups_display_array.forEach(item => {
             const option = document.createElement("option");
-            option.textContent = item;
+            option.textContent = item.Name;
+            option.value = item.id;
             dynamicTypesDropdown.appendChild(option);
           })
           //console.log(groupNamesArray);
@@ -168,6 +171,7 @@
         typeNamesArray.forEach(item => {
           const option = document.createElement("option");
           option.textContent = item;
+
           dynamicTypesDropdown.appendChild(option);
         })
         
@@ -181,21 +185,30 @@
 
     
     
-    /*
+  
   getDocs(TasksCollection)
     //a promise    
     .then((snapshot) => {
-        let types_display_array = []
+        let task_display_array = []
         snapshot.docs.forEach((doc) => {
           //the id could be useful for the buttons
-          types_display_array.push({...doc.data(), id: doc.id})
+          task_display_array.push({...doc.data(), id: doc.id})
         })
-      console.log(types_display_array)
+      //console.log(types_display_array)
+      let dynamicTasksRDropdown = document.getElementById("selectedTaskR");
+      
+      task_display_array.forEach(item => {
+        const option = document.createElement("option");
+        option.textContent = item.Name;
+        option.value = item.id;
+        dynamicTasksRDropdown.appendChild(option);
+      })
+
     })
     .catch(err => {
       console.log(err.message)
     })
-    */
+    
 
   //even # of elements, collection, doc (always even number)
   //const add_task_to_db
@@ -251,7 +264,7 @@
              //prevents page refresh
              e.preventDefault()
  
-             const docRef = doc(db, 'Tasks', removeTaskForm.TaskID.value)
+             const docRef = doc(db, 'Tasks', removeTaskForm.selTaskR.value)
  
              deleteDoc(docRef)
              .then(() => {
@@ -353,6 +366,8 @@
       
     }
     })
+
+    
 
     //document.getElementById("groupLegend").innerHTML = "I have changed!"; 
 
