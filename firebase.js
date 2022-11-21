@@ -416,12 +416,94 @@
     //probably have to build index as well
 
     //I think we could link these to buttons to find certain things
+
+    //Mark Task Drop Down Function
     const group_query = query(GroupCollection, where("name", "==", "nametofind"))
+    
+    const markedTaskQuery = query(TasksCollection, where("Completed", "==", false))
+    
+    /*
+    const MarkedTaskQueryFunc = await getDocs(markedTaskQuery);
+    MarkedTaskQueryFunc.forEach((doc) => {
+      console.log(doc.id, " =>", doc.data().Name);
+    });
+    */
+
+
+
+
+    getDocs(markedTaskQuery)
+    //a promise    
+    .then((snapshot) => {
+        let task_display_array_m = []
+        snapshot.docs.forEach((doc) => {
+          //the id could be useful for the buttons
+          task_display_array_m.push({...doc.data(), id: doc.id})
+        })
+      //console.log(types_display_array)
+      let dynamicTasksMDropdown = document.getElementById("selectedTaskM");
+      
+      task_display_array_m.forEach(item => {
+        const option = document.createElement("option");
+        option.textContent = item.Name;
+        option.value = item.id;
+        dynamicTasksMDropdown.appendChild(option);
+        //console.log(doc.id, " =>", doc.data().Name);
+        
+      })
+
+    })
+    .catch(err => {
+      console.log(err.message)
+    })
+    
+
+
+
+
+
+
+
+    /*
+    getDocs(markedTaskQuery)
+    //a promise    
+    .then((snapshot) => {
+        let types_display_array = []
+        snapshot.docs.forEach((doc) => {
+          //the id could be useful for the buttons
+          types_display_array.push({...doc.data(), id: doc.id})
+        })
+        //var typesDropdownMenu = document.getElementById("selectedType");
+        //dropdown[dropdown.length] = new Option(types_display_array[i].Name, types_display_array[i].Name);
+        //let onlyTypesNamesArray = types_display_array[i].name;
+        let dynamicTaskDropdownM = document.getElementById("selectedType");
+        //the element we need
+
+        let typeNamesArray = [];
+        for (let i = 0; i < types_display_array.length; i++){
+          typeNamesArray[i] = types_display_array[i].Name;
+        }
+        
+        typeNamesArray.forEach(item => {
+          const option = document.createElement("option");
+          option.textContent = item;
+
+          dynamicTypesDropdown.appendChild(option);
+        })
+        
+        //console.log(typeNamesArray);
+        //console.log(types_display_array);
+        })
+    .catch(err => {
+      console.log(err.message)
+    })
+    */
+    
+    //marked_task_query(forEach)
 
 
     //or to order certain things by a certain field
     const task_time_query = query(TasksCollection, where("name", "==", "nametofind"), orderBy('Date Due', 'desc'))
-
 
 
 
@@ -445,7 +527,7 @@
     completedTaskEdit.addEventListener('submit', (e) => {
         e.preventDefault()
 
-        const docRef = doc(db, 'Tasks', completedTaskEdit.TaskID.value)
+        const docRef = doc(db, 'Tasks', completedTaskEdit.selTaskM.value)
 
         updateDoc(docRef, {
             Completed: true,
@@ -562,9 +644,11 @@
 
     const showApp = () => {
       const userThing = auth.currentUser.reloadUserInfo.screenName;
+      const userPic = auth.currentUser.reloadUserInfo.photoUrl;
       document.getElementById("login").style.display = 'none'
       document.getElementById('app').style.display = 'block'
       document.getElementById('userName').innerHTML = "Hello " + userThing;
+      //document.getElementById('userPic').innerHTML = '<img src="' + userPic + '">';
       //document.getElementById('userName').innerHTML += "Hello " + {user.displayName};
     }
 

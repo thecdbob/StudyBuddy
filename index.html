@@ -26,6 +26,9 @@
       
       <div class = "app" id="app">
         <p id="userName"></p>
+        <!--
+          <div id="userPic"></div>
+        -->
         <button class ="logoutb">Logout</button>
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalT">Add Task</button>
         <div class="modal" id="myModalT">
@@ -87,9 +90,13 @@
               </div>
               <div class="modal-body">
                 <form class = "completeTask">
+                  <!--
                   <label for="Task Name">Task Id:</label>
                   <input type="text" name="TaskID" required>
+                  --->
+                  <label for="Task Name">Task Id:</label>
                   <button>Complete Task</button>
+                  <select id = "selectedTaskM" name = "selTaskM" required></select>
                 </form>
               </div>
             </div>
