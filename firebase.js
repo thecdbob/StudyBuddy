@@ -122,7 +122,8 @@
             //the id could be useful for the buttons
             groups_display_array.push({...doc.data(), id: doc.id})
           })
-          let dynamicTypesDropdown = document.getElementById("selectedGroup");
+          let dynamicGroupsDropdown = document.getElementById("selectedGroup");
+          let removeGroupsDropdown = document.getElementById("selectedGroupR");
           //the element we need
           /*
           let groupNamesArray = [];
@@ -134,9 +135,15 @@
           */
           groups_display_array.forEach(item => {
             const option = document.createElement("option");
+            const optionR = document.createElement("option");
             option.textContent = item.Name;
             option.value = item.id;
-            dynamicTypesDropdown.appendChild(option);
+            if(item.Name != "default") {
+              optionR.textContent = item.Name;
+              optionR.value = item.id;
+              removeGroupsDropdown.appendChild(optionR);
+            }
+            dynamicGroupsDropdown.appendChild(option);
           })
           //console.log(groupNamesArray);
           })
@@ -272,6 +279,19 @@
          })
      })
      
+     //delete group
+     const removeGroupForm = document.querySelector('.remove_group')
+     removeGroupForm.addEventListener('submit', (e) => {
+             //prevents page refresh
+             e.preventDefault()
+ 
+             const docRef = doc(db, 'Groups', removeGroupForm.selGroupR.value)
+ 
+             deleteDoc(docRef)
+             .then(() => {
+             removeGroupForm.reset()
+         })
+     })
 
     //delete task
     //const removeTaskForm = document.querySelector('.remove_task');

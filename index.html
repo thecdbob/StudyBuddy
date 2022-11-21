@@ -52,7 +52,7 @@
                     </select>
                   <label for="Date Due">Date Due:</label>
                   <input type="date" name="DateDue" required>
-                  <button>Add Task</button>
+                  <button data-bs-dismiss="modal">Add Task</button>
                 </form>
               </div>
             </div>
@@ -73,7 +73,7 @@
                   <input type="text" placeholder="Enter Group Name" name="GroupName" required>
                   <label for="Colour">Colour:</label>
                   <input type="color" name="GroupColour" required>
-                  <button>Add Group</button>
+                  <button data-bs-dismiss="modal">Add Group</button>
                 </form>
               </div>
             </div>
@@ -96,7 +96,7 @@
                   --->
                   <label for="Task Name">Task Id:</label>
                   <select id = "selectedTaskM" name = "selTaskM" required></select>
-                  <button>Complete Task</button>
+                  <button data-bs-dismiss="modal">Complete Task</button>
                 </form>
               </div>
             </div>
@@ -120,14 +120,35 @@
                   -->
                   <label for="Task Name">Task Id:</label>
                   <select id = "selectedTaskR" name = "selTaskR" required></select>
-                  <button>Remove Task</button>
+                  <button data-bs-dismiss="modal">Remove Task</button>
                 </form>
               </div>
             </div>
           </div>
         </div>
 
-        
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalGR">Remove Group</button>
+        <div class="modal" id="myModalGR">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Remove Group</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                
+              </div>
+              <div class="modal-body">
+                <form class = "remove_group">
+                  <!--
+                    <input type="text" name="TaskID" required>
+                  -->
+                  <label for="Group Name">Group Id:</label>
+                  <select id = "selectedGroupR" name = "selGroupR" required></select>
+                  <button data-bs-dismiss="modal">Remove Group</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- comment --->
         
