@@ -1,0 +1,120 @@
+* {
+    padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    background-color: rgb(83, 48, 154);
+    
+}
+
+.login-screen {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(83, 48, 154)
+}
+
+.login {
+    width: 360px;
+    height: min-content;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: white;
+    display: flex;
+}
+
+.top-header{
+    display:flex;
+    /* border:  5px solid white; */
+    border-radius: 12px;
+    font-size: 50px;
+    font-weight: bold;
+
+    margin-top: 25px;
+
+    background-color: rgb(186, 175, 175);
+    /* gap: 60px; */
+    justify-content: space-between;
+}
+
+.user-name{
+    align-self: center;
+    color: blue;
+    padding-top: 14px;
+    font-size: 24px;
+    font-weight: normal;
+    padding-left: 15px;
+}
+
+.logoutb{
+    height: 80px;
+}
+
+.task-buttons, .group-buttons{
+    /* border:  5px solid white; */
+    border-radius: 12px;
+
+    margin-top: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    background-color: rgb(186, 175, 175);
+    /* gap: 60px; */
+    justify-content: space-around;
+
+}
+
+.app{
+    width:90%;
+    margin: auto;
+}
+
+
+.content{
+    display: flex;
+    flex:2 1 auto;
+    flex-direction: row;
+
+}
+
+.task-content{
+    width:75%;
+
+}
+
+.dynamic-tasks, .dynamic-groups{    
+    border-radius: 12px;
+    margin-top: 25px;
+
+    background-color: rgb(186, 175, 175);
+}
+
+.task-buttons{
+    display: flex;
+    justify-content: center;
+    gap: 45px;
+}
+
+.group-content{
+    /* margin-top: 25px; */
+    margin-left: auto;
+    align-content: flex-end;
+
+}
+
+.rounded{
+    border-top: 8px solid rgb(29, 26, 26);
+    border-radius: 5px;
+}
+
+.sub-heading{
+    font-size: 40px;
+    font-weight: bold;
+text-align: center;
+display: block;
+margin-bottom: 5px;
+}
