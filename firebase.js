@@ -113,17 +113,20 @@ const TasksCollection = collection(db, 'Tasks');
 
 //commented out for now, but will be needed for dropdowns, saves writes
 
+let dynamicGroupsDropdown = document.getElementById("selectedGroup");
+let removeGroupsDropdown = document.getElementById("selectedGroupR");
 
-getDocs(GroupCollection)
+
+const updatePopupGroup = getDocs(GroupCollection)
   //a promise    
   .then((snapshot) => {
+    console.log("UPDATING");
     let groups_display_array = []
     snapshot.docs.forEach((doc) => {
       //the id could be useful for the buttons
       groups_display_array.push({ ...doc.data(), id: doc.id })
     })
-    let dynamicGroupsDropdown = document.getElementById("selectedGroup");
-    let removeGroupsDropdown = document.getElementById("selectedGroupR");
+
     //the element we need
     /*
     let groupNamesArray = [];
@@ -137,7 +140,13 @@ getDocs(GroupCollection)
       const option = document.createElement("option");
       const optionR = document.createElement("option");
       option.textContent = item.Name;
+      /*
+      //if it's remove do this
       option.value = item.id;
+      option.id = item.Name;
+      //if it's add do this
+      option.value = item.name;
+      */
       if (item.Name != "default") {
         optionR.textContent = item.Name;
         optionR.value = item.id;
@@ -154,6 +163,72 @@ getDocs(GroupCollection)
 
 //run to create array that's populates dropdown menu for user input on tasks
 //must be run within that function as well...
+
+const addtaskbutton = document.querySelector('.addtaskbutton');
+const removeBtn = document.querySelector('.removegroupbutton');
+
+const refreshGroups = ()=>{
+  console.log("CALLED");
+  getDocs(GroupCollection)
+  //a promise    
+  .then((snapshot) => {
+    console.log("UPDATING");
+    let groups_display_array = []
+    snapshot.docs.forEach((doc) => {
+      //the id could be useful for the buttons
+      groups_display_array.push({ ...doc.data(), id: doc.id })
+    })
+
+    //the element we need
+    /*
+    let groupNamesArray = [];
+    
+    for (let i = 0; i < groups_display_array.length; i++){
+      groupNamesArray[i] = groups_display_array[i].Name;
+      
+    }
+    */
+
+    // remove everything in the dropdown
+   while (dynamicGroupsDropdown.length > 0) {
+    dynamicGroupsDropdown.remove(0);  
+   }
+
+    // remove everything in the dropdown
+    while (removeGroupsDropdown.length > 0) {
+      removeGroupsDropdown.remove(0);  
+    }
+
+    groups_display_array.forEach(item => {
+      const option = document.createElement("option");
+      const optionR = document.createElement("option");
+      option.textContent = item.Name;
+      /*
+      //if it's remove do this
+      option.value = item.id;
+      option.id = item.Name;
+      //if it's add do this
+      option.value = item.name;
+      */
+      if (item.Name != "default") {
+        optionR.textContent = item.Name;
+        optionR.value = item.id;
+        removeGroupsDropdown.appendChild(optionR);
+      }
+      dynamicGroupsDropdown.appendChild(option);
+    })
+    //console.log(groupNamesArray);
+  })
+
+  .catch(err => {
+    console.log(err.message)
+  })
+}
+
+addtaskbutton.addEventListener('click', refreshGroups);
+removeBtn.addEventListener('click',refreshGroups);
+
+
 
 
 getDocs(TypeCollection)
@@ -251,7 +326,7 @@ addTaskForm.addEventListener('submit', (e) => {
   e.preventDefault()
 
   addDoc(TasksCollection, {
-    Group: addTaskForm.selGroup.innerText,
+    Group: addTaskForm.selGroup.value,
     Name: addTaskForm.TaskName.value,
     Type: addTaskForm.selType.value,
     date_due: addTaskForm.DateDue.value,
@@ -264,6 +339,34 @@ addTaskForm.addEventListener('submit', (e) => {
       addTaskForm.reset()
     })
 })
+
+
+
+//not defined, but may be used if the HTML solultion doesn't work
+
+/*
+//add task but only name
+const addTaskFormName = document.querySelector('.create_task')
+addTaskFormName.addEventListener('submit', (e) => {
+  //prevents page refresh
+  e.preventDefault()
+
+  addDoc(TasksCollection, {
+    Group: addTaskForm.selGroup.value,
+    Name: addTaskForm.TaskName.value,
+    Type: addTaskForm.selType.value,
+    date_due: addTaskForm.DateDue.value,
+    time_created: serverTimestamp(),
+    time_modified: serverTimestamp(),
+    Completed: false
+  })
+    .then(() => {
+      //reset box for more input
+      addTaskForm.reset()
+    })
+})
+*/
+
 
 //delete task
 const removeTaskForm = document.querySelector('.remove_task')
@@ -410,7 +513,7 @@ onSnapshot(TasksCollection, (snapshot) => {
     //we use this in another place, but it works
     var tId = task_display_array_rt[i].id;
 
-    var taskString = tCompleted + " " + tName + " " + tGroup + " " + tType + " " + tDue + " " + tId;
+    var taskString = tName + " " + tGroup + " " + tType + " " + tDue;
     //hi josh please change this
     if (tCompleted == false) {
       document.getElementById("taskDisplay").innerHTML += '<li>' + taskString + '</li>';
@@ -477,6 +580,80 @@ getDocs(markedTaskQuery)
     console.log(err.message)
   })
 
+  const refreshCompletedTasks = function (){
+
+    console.log("Refereshed completed tasks");
+
+    getDocs(markedTaskQuery)
+  //a promise    
+  .then((snapshot) => {
+    let task_display_array_m = []
+    snapshot.docs.forEach((doc) => {
+      //the id could be useful for the buttons
+      task_display_array_m.push({ ...doc.data(), id: doc.id })
+    })
+    //console.log(types_display_array)
+    let dynamicTasksMDropdown = document.getElementById("selectedTaskM");
+
+    // remove everything in the dropdown
+    while (dynamicTasksMDropdown.length > 0) {
+      dynamicTasksMDropdown.remove(0);  
+    }
+
+    task_display_array_m.forEach(item => {
+      const option = document.createElement("option");
+      option.textContent = item.Name;
+      option.value = item.id;
+      dynamicTasksMDropdown.appendChild(option);
+      //console.log(doc.id, " =>", doc.data().Name);
+
+    })
+
+  })
+  .catch(err => {
+    console.log(err.message)
+  })
+  }
+
+  const refreshRemoveDropdown = function(){
+    console.log("REFRESH remove dropdown");
+
+    getDocs(TasksCollection)
+  //a promise    
+  .then((snapshot) => {
+    let task_display_array = []
+    snapshot.docs.forEach((doc) => {
+      //the id could be useful for the buttons
+      task_display_array.push({ ...doc.data(), id: doc.id })
+    })
+    //console.log(types_display_array)
+    let dynamicTasksRDropdown = document.getElementById("selectedTaskR");
+
+    // remove everything in the dropdown
+    while (dynamicTasksRDropdown.length > 0) {
+      dynamicTasksRDropdown.remove(0);  
+    }
+
+    task_display_array.forEach(item => {
+      const option = document.createElement("option");
+      option.textContent = item.Name;
+      option.value = item.id;
+      dynamicTasksRDropdown.appendChild(option);
+    })
+
+  })
+  .catch(err => {
+    console.log(err.message)
+  })
+
+  }
+
+  const completedBtn = document.querySelector('.completetaskbutton');
+  const removeTaskBtn = document.querySelector('.removetaskbutton');
+
+
+  completedBtn.addEventListener('click',refreshCompletedTasks);
+  removeTaskBtn.addEventListener('click',refreshRemoveDropdown);
 
 
 
@@ -633,7 +810,7 @@ loginButton.addEventListener('click', (e) => {
       // The signed-in user info
       const user = result.user;
 
-
+      location.reload();
 
       // ...
     })
@@ -658,6 +835,7 @@ logoutButton.addEventListener('click', () => {
   signOut(auth)
     .then(() => {
       //console.log('Signed Out')
+      location.reload();
     })
     .catch((err) => {
       console.log(err.message)

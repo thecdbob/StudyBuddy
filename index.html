@@ -69,7 +69,7 @@
         <div class="task-buttons">
 
           <!-- ADD task functionality -->
-          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModalT">Add
+          <button type="button" class="btn btn-success addtaskbutton" data-bs-toggle="modal" data-bs-target="#myModalT">Add
             Task</button>
           <div class="modal" id="myModalT">
             <div class="modal-dialog">
@@ -80,18 +80,25 @@
                 </div>
                 <div class="modal-body">
                   <form class="create_task">
-                    <label for="Group Name">Group:</label>
-                    <label for="Type">Choose a Type:</label>
-                    <select id="selectedGroup" name="selGroup" required>
-                    </select>
                     <label for="Task Name">Task Name:</label>
                     <input type="text" placeholder="Enter Task Name" name="TaskName" required>
+                    <br>
+                    <br>
+                    <label for="Group Name">Group:</label>
+                    <select id="selectedGroup" name="selGroup" required>
+                    </select>
+                    <br>
+                    <br>
                     <!--change to take values from something else later on-->
-                    <label for="Type">Choose a Type:</label>
+                    <label for="Type">Type:</label>
                     <select id="selectedType" name="selType" required>
                     </select>
+                    <br>
+                    <br>
                     <label for="Date Due">Date Due:</label>
                     <input type="date" name="DateDue" required>
+                    <br>
+                    <hr>
                     <button class="btn btn-success" data-bs-dismiss="modal">Add Task</button>
                   </form>
                 </div>
@@ -101,7 +108,7 @@
 
 
           <!-- Complete task functionality -->
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalC">Complete
+          <button type="button" class="btn btn-primary completetaskbutton" data-bs-toggle="modal" data-bs-target="#myModalC">Complete
             Task</button>
           <div class="modal" id="myModalC">
             <div class="modal-dialog">
@@ -118,6 +125,8 @@
                         --->
                     <label for="Task Name">Task Id:</label>
                     <select id="selectedTaskM" name="selTaskM" required></select>
+                    <br>
+                    <hr>
                     <button class="btn btn-primary" data-bs-dismiss="modal">Complete Task</button>
                   </form>
                 </div>
@@ -126,7 +135,7 @@
           </div>
 
           <!-- Remove Task functionality -->
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModalR">Remove
+          <button type="button" class="btn btn-danger removetaskbutton" data-bs-toggle="modal" data-bs-target="#myModalR">Remove
             Task</button>
           <div class="modal" id="myModalR">
             <div class="modal-dialog">
@@ -143,6 +152,8 @@
                         -->
                     <label for="Task Name">Task Id:</label>
                     <select id="selectedTaskR" name="selTaskR" required></select>
+                    <br>
+                    <hr>
                     <button class="btn btn-danger" data-bs-dismiss="modal">Remove Task</button>
                   </form>
                 </div>
@@ -186,8 +197,12 @@
                   <form class="create_group">
                     <label for="Group Name">Group Name:</label>
                     <input type="text" placeholder="Enter Group Name" name="GroupName" required>
+                    <br>
+                    <br>
                     <label for="Colour">Colour:</label>
                     <input type="color" name="GroupColour" required>
+                    <br>
+                    <hr>
                     <button class="btn btn-success" data-bs-dismiss="modal">Add Group</button>
                   </form>
                 </div>
@@ -195,7 +210,7 @@
             </div>
           </div>
 
-          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModalGR">Remove
+          <button type="button" class="btn btn-danger removegroupbutton" data-bs-toggle="modal" data-bs-target="#myModalGR">Remove
             Group</button>
           <div class="modal" id="myModalGR">
             <div class="modal-dialog">
@@ -212,6 +227,8 @@
                             -->
                     <label for="Group Name">Group Id:</label>
                     <select id="selectedGroupR" name="selGroupR" required></select>
+                    <br>
+                    <hr>
                     <button class="btn btn-danger" data-bs-dismiss="modal">Remove Group</button>
                   </form>
                 </div>
