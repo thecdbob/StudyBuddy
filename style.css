@@ -2,12 +2,20 @@
     padding: 0;
     box-sizing: border-box;
     margin: 0;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button {
+    text-shadow: 1px 1px 3px #000000;
+    box-shadow: 1px 1px 5px -1px #000000;
+}
+
+.study-buddy{
+    text-shadow: 2px 2px 10px #fbfbfb;
 }
 
 body{
     background-color: rgb(83, 48, 154);
-    
 }
 
 .login-screen {
@@ -25,6 +33,8 @@ body{
     border-radius: 12px;
     background-color: white;
     display: flex;
+    text-shadow: 1px 1px 1px #000000;
+    box-shadow: 5px 5px 10px;
 }
 
 .top-header{
@@ -33,9 +43,9 @@ body{
     border-radius: 12px;
     font-size: 50px;
     font-weight: bold;
-
+    text-shadow: 1px 1px #000000;
+    box-shadow: 5px 5px 10px;
     margin-top: 25px;
-
     background-color: rgb(186, 175, 175);
     /* gap: 60px; */
     justify-content: space-between;
@@ -52,6 +62,8 @@ body{
 
 .logoutb{
     height: 80px;
+    text-shadow: 1px 1px 3px #ffffff;
+    box-shadow: 1px 1px 5px -1px #000000;
 }
 
 .task-buttons, .group-buttons{
@@ -65,6 +77,8 @@ body{
     background-color: rgb(186, 175, 175);
     /* gap: 60px; */
     justify-content: space-around;
+    text-shadow: 1px 1px 1px #4c4c4c;
+    box-shadow: 5px 5px 10px;
 
 }
 
@@ -78,7 +92,7 @@ body{
     display: flex;
     flex:2 1 auto;
     flex-direction: row;
-
+    box-shadow: 5px 5px 10px;
 }
 
 .task-content{
@@ -89,8 +103,8 @@ body{
 .dynamic-tasks, .dynamic-groups{    
     border-radius: 12px;
     margin-top: 25px;
-
     background-color: rgb(186, 175, 175);
+    box-shadow: 5px 5px 10px;
 }
 
 .task-buttons{
@@ -114,7 +128,13 @@ body{
 .sub-heading{
     font-size: 40px;
     font-weight: bold;
-text-align: center;
-display: block;
-margin-bottom: 5px;
+    text-align: center;
+    display: block;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 10px #fbfbfb;
+    box-shadow: 5px 5px 10px;
+}
+
+.colorRow{
+    border: 12px solid #830f0f;
 }

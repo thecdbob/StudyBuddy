@@ -494,6 +494,9 @@ onSnapshot(GroupCollection, (snapshot) => {
 
 //document.getElementById("groupLegend").innerHTML = "I have changed!"; 
 
+const taskTable = document.querySelector(".task-table");
+const completedtaskTable = document.querySelector(".completed-task-table");
+
 //Realtime Tasks
 onSnapshot(TasksCollection, (snapshot) => {
   let task_display_array_rt = []
@@ -501,8 +504,11 @@ onSnapshot(TasksCollection, (snapshot) => {
     //the id could be useful for the buttons
     task_display_array_rt.push({ ...doc.data(), id: doc.id })
   })
-  document.getElementById("taskDisplay").innerHTML = '';
-  document.getElementById("completedTaskDisplay").innerHTML = '';
+  // document.getElementById("taskDisplay").innerHTML = '';
+  // document.getElementById("completedTaskDisplay").innerHTML = '';
+  taskTable.innerHTML = '';
+  completedtaskTable.innerHTML = '';
+
   //document.getElementById("taskDisplay").innerHTML = '<h2>Tasks</h2>';
   for (let i = 0; i < task_display_array_rt.length; i++) {
     var tCompleted = task_display_array_rt[i].Completed;
@@ -510,15 +516,30 @@ onSnapshot(TasksCollection, (snapshot) => {
     var tGroup = task_display_array_rt[i].Group;
     var tType = task_display_array_rt[i].Type;
     var tDue = task_display_array_rt[i].date_due;
+
+    const colorq = query(GroupCollection, where("name","==","default"));
+    //const colorq = query(GroupCollection, where("name","==",`${tGroup}`));
+
+    let tcolor = task_display_array_rt[i].colorq;
+
     //we use this in another place, but it works
     var tId = task_display_array_rt[i].id;
 
-    var taskString = tName + " " + tGroup + " " + tType + " " + tDue;
+    let tr = document.createElement('tr');
+    let taskstr = `<td>${tName}</td><td>${tGroup}</td><td>${tType}</td><td>${tDue}</td>`;
+    
+    tr.innerHTML = taskstr ;
+    console.log(colorq);
+    console.log(tGroup);
+    tr.classList.add('color-row');
+
+
     //hi josh please change this
     if (tCompleted == false) {
-      document.getElementById("taskDisplay").innerHTML += '<li>' + taskString + '</li>';
+      taskTable.appendChild(tr);
     } else {
-      document.getElementById("completedTaskDisplay").innerHTML += '<li>' + taskString + '</li>';
+      
+      completedtaskTable.appendChild(tr);
     }
     //document.getElementById("taskDisplay").innerHTML +='<li><button id ="' + "m" + tId + '">Mark</button> ' + taskString + ' <button type="button" class="btn btn-primary" onclick="removeTask(' + tId + ');">Remove</button></li>';
     //document.getElementById("taskDisplay").innerHTML +='<script><script><li><button id ="' + "m" + tId + '">Mark</button> ' + taskString + ' <button type="button" class="btn btn-primary" onclick={() => removeTask(' + tId + ')}>Remove</button></li>';
@@ -530,7 +551,6 @@ onSnapshot(TasksCollection, (snapshot) => {
     //I modified the code haha!
   }
 })
-
 
 
 
