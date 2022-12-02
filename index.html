@@ -1,131 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <Title>Study Buddy</Title>
+  <Title style="text-align: center">
+    Study Buddy
+  </Title>
 
   <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
 
- 
-
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 
-  </head>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+    crossorigin="anonymous"></script>
 
-  <body>
-    <h1>Study Buddy</h1>
-    <script type = "module" src="firebase.js"></script>
-      <div class = "login" id="login">
-        <button class = "loginb">Login with Github</button>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+
+  <script type="module" src="firebase.js"></script>
+  <div class="login-screen">
+    <div class="login" id="login">
+      <!-- <button class = "loginb">Login with Github</button> -->
+      <h1 class="text-center">Study Buddy
+        <button class="loginb btn btn-primary">Login with Github</button>
+      </h1>
+    </div>
+  </div>
+
+  <div class="app" id="app">
+
+    <!--
+          <div id="userPic"></div>
+        -->
+    <!-- <div class="container border">
+      <div class="row">
+        <div class="col-12 text-center border">
+
+        </div>
+        <div class="col-1 border">
+        </div>
+        <div class="col-2">
+        </div>
+
       </div>
-      
-      <div class = "app" id="app">
-        <p id="userName"></p>
-        <button class ="logoutb">Logout</button>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalT">Add Task</button>
-        <div class="modal" id="myModalT">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Add Task</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-              </div>
-              <div class="modal-body">
-                <form class = "create_task">
-                  <label for="Group Name">Group:</label>
-                  <label for="Type">Choose a Type:</label>
-                    <select id = "selectedGroup" name = "selGroup" required>
+    </div> -->
+
+    <div class="top-header">
+      <p id="userName" class="user-name"></p>
+      <span class="study-buddy">Study Buddy</span>
+      <button class="logoutb btn btn-warning">Logout</button>
+    </div>
+
+    <div class="content">
+      <div class="task-content">
+        <div class="task-buttons">
+
+          <!-- ADD task functionality -->
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModalT">Add
+            Task</button>
+          <div class="modal" id="myModalT">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add Task</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <form class="create_task">
+                    <label for="Group Name">Group:</label>
+                    <label for="Type">Choose a Type:</label>
+                    <select id="selectedGroup" name="selGroup" required>
                     </select>
-                  <label for="Task Name">Task Name:</label>
-                  <input type="text" placeholder="Enter Task Name" name="TaskName" required>
-                  <!--change to take values from something else later on-->
-                  <label for="Type">Choose a Type:</label>
-                    <select id = "selectedType" name = "selType" required>
+                    <label for="Task Name">Task Name:</label>
+                    <input type="text" placeholder="Enter Task Name" name="TaskName" required>
+                    <!--change to take values from something else later on-->
+                    <label for="Type">Choose a Type:</label>
+                    <select id="selectedType" name="selType" required>
                     </select>
-                  <label for="Date Due">Date Due:</label>
-                  <input type="date" name="DateDue" required>
-                  <button>Add Task</button>
-                </form>
+                    <label for="Date Due">Date Due:</label>
+                    <input type="date" name="DateDue" required>
+                    <button class="btn btn-success" data-bs-dismiss="modal">Add Task</button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalG">Add Group</button>
-        <div class="modal" id="myModalG">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Add Group</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-              </div>
-              <div class="modal-body">
-                <form class = "create_group">
-                  <label for="Group Name">Group Name:</label>
-                  <input type="text" placeholder="Enter Group Name" name="GroupName" required>
-                  <label for="Colour">Colour:</label>
-                  <input type="color" name="GroupColour" required>
-                  <button>Add Group</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalC">Complete Task</button>
-        <div class="modal" id="myModalC">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Complete Task</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-              </div>
-              <div class="modal-body">
-                <form class = "completeTask">
-                  <label for="Task Name">Task Id:</label>
-                  <input type="text" name="TaskID" required>
-                  <button>Complete Task</button>
-                </form>
+          <!-- Complete task functionality -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalC">Complete
+            Task</button>
+          <div class="modal" id="myModalC">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Complete Task</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <form class="completeTask">
+                    <!--
+                        <label for="Task Name">Task Id:</label>
+                        <input type="text" name="TaskID" required>
+                        --->
+                    <label for="Task Name">Task Id:</label>
+                    <select id="selectedTaskM" name="selTaskM" required></select>
+                    <button class="btn btn-primary" data-bs-dismiss="modal">Complete Task</button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
+          <!-- Remove Task functionality -->
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModalR">Remove
+            Task</button>
+          <div class="modal" id="myModalR">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Remove Task</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalR">Remove Task</button>
-        <div class="modal" id="myModalR">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Remove Task</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                
-              </div>
-              <div class="modal-body">
-                <form class = "remove_task">
-                  <!--
-                    <input type="text" name="TaskID" required>
-                  -->
-                  <label for="Task Name">Task Id:</label>
-                  
-                  <button>Remove Task</button>
-                  <select id = "selectedTaskR" name = "selTaskR" required></select>
-                </form>
+                </div>
+                <div class="modal-body">
+                  <form class="remove_task">
+                    <!--
+                          <input type="text" name="TaskID" required>
+                        -->
+                    <label for="Task Name">Task Id:</label>
+                    <select id="selectedTaskR" name="selTaskR" required></select>
+                    <button class="btn btn-danger" data-bs-dismiss="modal">Remove Task</button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
+          <br>
+
+
+        </div>
+        <div class="dynamic-tasks">
+
+          <span class="sub-heading">Tasks</span>
+          <ul id="taskDisplay" style="list-style: none">
+
+          </ul>
+
+          <hr class="rounded">
+
+          <span class="sub-heading">Completed Tasks</span>
+          <ul id="completedTaskDisplay" style="list-style: none">
+
+          </ul>
         </div>
 
-        
 
-        <!-- comment --->
-        
-        <!--
+      </div>
+
+      <div class="group-content">
+        <div class="group-buttons">
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#myModalG">Add
+            Group</button>
+          <div class="modal" id="myModalG">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add Group</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                  <form class="create_group">
+                    <label for="Group Name">Group Name:</label>
+                    <input type="text" placeholder="Enter Group Name" name="GroupName" required>
+                    <label for="Colour">Colour:</label>
+                    <input type="color" name="GroupColour" required>
+                    <button class="btn btn-success" data-bs-dismiss="modal">Add Group</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#myModalGR">Remove
+            Group</button>
+          <div class="modal" id="myModalGR">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Remove Group</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+                </div>
+                <div class="modal-body">
+                  <form class="remove_group">
+                    <!--
+                              <input type="text" name="TaskID" required>
+                            -->
+                    <label for="Group Name">Group Id:</label>
+                    <select id="selectedGroupR" name="selGroupR" required></select>
+                    <button class="btn btn-danger" data-bs-dismiss="modal">Remove Group</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+        </div>
+        <div class="dynamic-groups">
+          <span class="sub-heading">Groups</span>
+          <ul id="groupLegend" style="list-style: none">
+
+          </ul>
+        </div>
+
+      </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- comment --->
+
+    <!--
         <form class = "create_group">
           <label for="Group Name">Group Name:</label>
           <input type="text" placeholder="Enter Group Name" name="GroupName" required>
@@ -136,7 +258,7 @@
         </form>
       -->
 
-        <!---
+    <!---
           future logic for a popup
         <button class = "createTaskB">Create Task</button>
 
@@ -160,23 +282,13 @@
         </div> 
         <div id="popUpOverlay"></div>
        -->
-        <h2>Groups</h2>
-        <ul id="groupLegend" style="list-style: none">
-            
-        </ul>
-        <h2>Tasks</h2>
-        <ul id="taskDisplay" style="list-style: none">
-            
-        </ul>
 
-        <h2>Completed Tasks</h2>
-        <ul id="completedTaskDisplay" style="list-style: none">
-            
-        </ul>
-        
-      </div>  
-        
-      
-      
-    
+
+
+
+  </div>
+
+
+
+
 </body>
