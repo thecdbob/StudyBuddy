@@ -109,6 +109,71 @@ const TasksCollection = collection(db, 'Tasks');
 
 //used to get different items from database (Groups, Tasks, Types)
 //probably useful for when we create objects
+let grabbed_colour= '#111111';
+let grabbed_name = 'notdefault';
+
+
+let allgroups = [];
+
+onSnapshot(GroupCollection,(snapshot) => {
+
+  allgroups = [];
+  snapshot.docs.forEach(doc => {
+    allgroups.push({...doc.data(),id: doc.id})
+  }
+  )
+  console.log(allgroups);
+}
+)
+
+
+//add task
+const addTaskForm = document.querySelector('.create_task')
+addTaskForm.addEventListener('submit', (e) => {
+  //prevents page refresh
+  e.preventDefault()
+  
+  //two local variables to use for document
+
+
+  /*
+  const docRef = doc(db, 'Groups', addTaskForm.selGroup.value);
+  console.log(docRef);
+  console.log(addTaskForm.selGroup.value);
+  getDoc(docRef) .then((doc) => {
+    //console.log("running group insert stuff");
+    console.log(doc.data(),doc.id);
+    grabbed_colour = doc.data().Colour;
+    grabbed_name = doc.data().Name;
+    console.log(grabbed_name,grabbed_colour);
+
+  }
+  
+    
+  )
+*/
+  addDoc(TasksCollection, {
+    //GroupID: addTaskForm.selGroup.value,
+    //create query based on if of element
+    Group: addTaskForm.selGroup.value,
+    //Group: grabbed_name,
+    //console.log(docRef);
+    //getDoc(GroupID)
+    //GroupColor: grabbed_colour,
+    //Group:
+    Name: addTaskForm.TaskName.value,
+    Type: addTaskForm.selType.value,
+    date_due: addTaskForm.DateDue.value,
+    time_created: serverTimestamp(),
+    time_modified: serverTimestamp(),
+    Completed: false
+  })
+    .then(() => {
+      //reset box for more input
+      addTaskForm.reset()
+    })
+})
+
 
 
 //commented out for now, but will be needed for dropdowns, saves writes
@@ -120,7 +185,7 @@ let removeGroupsDropdown = document.getElementById("selectedGroupR");
 const updatePopupGroup = getDocs(GroupCollection)
   //a promise    
   .then((snapshot) => {
-    console.log("UPDATING");
+    //console.log("UPDATING");
     let groups_display_array = []
     snapshot.docs.forEach((doc) => {
       //the id could be useful for the buttons
@@ -168,11 +233,11 @@ const addtaskbutton = document.querySelector('.addtaskbutton');
 const removeBtn = document.querySelector('.removegroupbutton');
 
 const refreshGroups = ()=>{
-  console.log("CALLED");
+  //console.log("CALLED");
   getDocs(GroupCollection)
   //a promise    
   .then((snapshot) => {
-    console.log("UPDATING");
+    //console.log("UPDATING");
     let groups_display_array = []
     snapshot.docs.forEach((doc) => {
       //the id could be useful for the buttons
@@ -185,7 +250,6 @@ const refreshGroups = ()=>{
     
     for (let i = 0; i < groups_display_array.length; i++){
       groupNamesArray[i] = groups_display_array[i].Name;
-      
     }
     */
 
@@ -203,6 +267,7 @@ const refreshGroups = ()=>{
       const option = document.createElement("option");
       const optionR = document.createElement("option");
       option.textContent = item.Name;
+      //option.value = item.id; #267 for dynamic id for group
       /*
       //if it's remove do this
       option.value = item.id;
@@ -319,26 +384,6 @@ addGroupForm.addEventListener('submit', (e) => {
     })
 })
 
-//add task
-const addTaskForm = document.querySelector('.create_task')
-addTaskForm.addEventListener('submit', (e) => {
-  //prevents page refresh
-  e.preventDefault()
-
-  addDoc(TasksCollection, {
-    Group: addTaskForm.selGroup.value,
-    Name: addTaskForm.TaskName.value,
-    Type: addTaskForm.selType.value,
-    date_due: addTaskForm.DateDue.value,
-    time_created: serverTimestamp(),
-    time_modified: serverTimestamp(),
-    Completed: false
-  })
-    .then(() => {
-      //reset box for more input
-      addTaskForm.reset()
-    })
-})
 
 
 
@@ -389,6 +434,40 @@ removeGroupForm.addEventListener('submit', (e) => {
   e.preventDefault()
 
   const docRef = doc(db, 'Groups', removeGroupForm.selGroupR.value)
+
+  //update all tasks that had that value
+  
+  // const removedGroupQuery = query(TasksCollection, where("GroupID", "==", removeGroupForm.selGroupR.value))
+  
+  
+  //   getDocs(removedGroupQuery)
+  // //a promise    
+  // .then((snapshot) => {
+  //   let remove_groups_array = []
+  //   snapshot.docs.forEach((doc) => {
+  //     //the id could be useful for the buttons
+  //     remove_groups_array.push({id: doc.id })
+  //   })
+  //     //change values to default
+  //   task_display_array.forEach(item => {
+
+  //     updateDoc(item.id, {
+  //     Group: "default",
+  //     GroupID: "default_group",
+  //     GroupColour: "#000000",
+  //     time_modified: serverTimestamp()
+  //     })
+
+  //   })
+
+  // })
+  // .catch(err => {
+  //   console.log(err.message)
+  // })
+
+
+  
+  
 
   deleteDoc(docRef)
     .then(() => {
@@ -516,22 +595,33 @@ onSnapshot(TasksCollection, (snapshot) => {
     var tGroup = task_display_array_rt[i].Group;
     var tType = task_display_array_rt[i].Type;
     var tDue = task_display_array_rt[i].date_due;
+    let tcolors = "#000";
 
-    const colorq = query(GroupCollection, where("name","==","default"));
-    //const colorq = query(GroupCollection, where("name","==",`${tGroup}`));
-
-    let tcolor = task_display_array_rt[i].colorq;
-
+    for (let index = 0; index < allgroups.length; index++) {
+      if(allgroups[index].Name === tGroup){
+        console.log("FOUND COLOR for group " + tGroup + " task " +tName );
+        tcolors = allgroups[index].Colour;
+        console.log(tcolors,tGroup);
+      }
+    }
+   
     //we use this in another place, but it works
     var tId = task_display_array_rt[i].id;
 
     let tr = document.createElement('tr');
-    let taskstr = `<td>${tName}</td><td>${tGroup}</td><td>${tType}</td><td>${tDue}</td>`;
+    let taskstr = `<td>${tName}</td><td>
     
-    tr.innerHTML = taskstr ;
-    console.log(colorq);
-    console.log(tGroup);
+    <div class = "groupIcon" style = "background-color : ${tcolors}"></div>
+    
+    ${tGroup}</td>
+    
+    <td>${tType}</td><td>${tDue}</td>`;
+    // tr.style.backgroundColor = tcolors;
+    tr.innerHTML = taskstr;
+    //console.log(colorq);
+    // console.log(tGroup);
     tr.classList.add('color-row');
+    
 
 
     //hi josh please change this
@@ -602,7 +692,7 @@ getDocs(markedTaskQuery)
 
   const refreshCompletedTasks = function (){
 
-    console.log("Refereshed completed tasks");
+    //console.log("Refereshed completed tasks");
 
     getDocs(markedTaskQuery)
   //a promise    
@@ -636,7 +726,7 @@ getDocs(markedTaskQuery)
   }
 
   const refreshRemoveDropdown = function(){
-    console.log("REFRESH remove dropdown");
+    //console.log("REFRESH remove dropdown");
 
     getDocs(TasksCollection)
   //a promise    
@@ -813,14 +903,14 @@ signInWithPopup(auth, provider)
 //login
 
 const loginButton = document.querySelector('.loginb')
-console.log(loginButton);
+//console.log(loginButton);
 
 loginButton.addEventListener('click', (e) => {
   e.preventDefault()
 
-  console.log("Login screen clearing")
+  //console.log("Login screen clearing")
 
-  console.log("Login screen clearing")
+  //console.log("Login screen clearing")
   signInWithPopup(auth, provider)
     .then((result) => {
       // This gives you a GitHub Access Token. You can use it to access the GitHub API.
@@ -890,8 +980,8 @@ const showLoginForm = () => {
 
 const monitorAuthState = async () => {
   onAuthStateChanged(auth, (user) => {
-    console.log("hi everyone, I'm logged in")
-    console.log('user status changedddddddddddd', user)
+    //console.log("hi everyone, I'm logged in")
+    //console.log('user status changedddddddddddd', user)
     if (user) {
       showApp()
     }

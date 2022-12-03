@@ -135,6 +135,17 @@ body{
     box-shadow: 5px 5px 10px;
 }
 
-.colorRow{
-    border: 12px solid #830f0f;
+.color-row{
+    /* border: 12px solid #830f0f; */
+    /* background-color: #830f0f !important; */
+    /* color: #fbfbfb; */
+}
+
+.groupIcon{
+    display: inline-block;
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    margin-right: 10px;
 }
