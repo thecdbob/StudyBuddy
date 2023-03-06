@@ -1,3 +1,2 @@
-# CSCI265GroupProject
-
+# StudyBuddy
 A application for time tracking
